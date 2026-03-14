@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "aUymKraugg0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Filipi\\Documentos\\FIAP\\fiape-pos\\Marketplace.Catalog.Application\\Marketplace.Catalog.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Filipi\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.5\\microsoft.extensions.dependencyinjection.10.0.5.nupkg.sha512",
+    "C:\\Users\\Filipi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.5\\microsoft.extensions.dependencyinjection.abstractions.10.0.5.nupkg.sha512"
+  ],
+  "logs": []
+}
