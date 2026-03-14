@@ -8,7 +8,7 @@ namespace Marketplace.Catalog.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class ProductController
+public class ProductController: ControllerBase
 {
     public ProductController()
     {
@@ -16,7 +16,6 @@ public class ProductController
     }
 
     [HttpGet]
-   
     public async Task<IActionResult> GetAll()
     {
      return null;
@@ -24,30 +23,27 @@ public class ProductController
 
     
     [HttpGet]
-    [Route("{id}")]
+    [Route("getBy-id")]
     public async Task<IActionResult> GetById ([FromQuery] Guid id)
     {
-     return null;
+      return null;
     }
 
     
     [HttpPost]
-    
-    public async Task<IActionResult> CreateProduct([FromBody ]Product product)
+    public async Task<IActionResult> CreateProduct([FromBody] Product product)
     {
       return null;
     }
 
     
     [HttpPatch]
-   
     public async Task<IActionResult> UpdateProdutc([FromBody] Product product)
     {
       return null;
     }
     
     [HttpDelete]
-   
     public async Task<IActionResult> DeleteProduct([FromQuery] Guid id)
     {
       return null;

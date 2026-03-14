@@ -18,7 +18,7 @@ public class AuthController: ControllerBase
     }
 
     [HttpPost ("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+    public async Task<IActionResult> Login([FromQuery] LoginRequest loginRequest)
     {
         try
         {
