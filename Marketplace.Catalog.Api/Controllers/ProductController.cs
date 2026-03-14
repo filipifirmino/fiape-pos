@@ -1,4 +1,5 @@
 using System;
+using Marketplace.Catalog.Domain.Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,12 +53,4 @@ public class ProductController
       return null;
     }
 
-}
-
-//Temporario apenas para não quebrar o build da api
-public class Product
-{
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
 }
