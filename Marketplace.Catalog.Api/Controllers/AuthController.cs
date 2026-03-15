@@ -6,39 +6,37 @@ namespace Marketplace.Catalog.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class AuthController: ControllerBase
+public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
     private readonly ILogger<AuthController> _logger;
+
     public AuthController(IAuthService authService, ILogger<AuthController> logger)
     {
         _authService = authService;
         _logger = logger;
-    
     }
 
-    [HttpPost ("login")]
-    public async Task<IActionResult> Login([FromQuery] LoginRequest loginRequest)
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
         try
         {
-             if (!loginRequest.IsValid())
-            {
+            if (!loginRequest.IsValid())
                 return BadRequest(new { message = "Invalid request data" });
-            }
-                
+
             var response = await _authService.AuthenticateAsync(loginRequest);
-                
+
             if (response == null)
             {
-                _logger.LogWarning("Failed login attempt for user: {RequestUsername}", loginRequest.Email);
+                _logger.LogWarning("Failed login attempt for: {Email}", loginRequest.Email);
                 return Unauthorized(new { message = "Invalid credentials" });
             }
-                
-            _logger.LogInformation("User {RequestUsername} logged in successfully", loginRequest.Email);
+
+            _logger.LogInformation("User logged in: {Email}", loginRequest.Email);
             return Ok(response);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger.LogError(ex, "Error during login");
             return StatusCode(500, new { message = "Internal server error" });

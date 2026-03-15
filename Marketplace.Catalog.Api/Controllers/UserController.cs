@@ -1,39 +1,66 @@
-using Marketplace.Catalog.Domain.Entities;
+using Marketplace.Catalog.Application.interfaces;
+using Marketplace.Catalog.Domain.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Catalog.Api.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
+[Authorize]
 public class UserController : ControllerBase
 {
-    public UserController()
+    private readonly IUserService _userService;
+    private readonly ILogger<UserController> _logger;
+
+    public UserController(IUserService userService, ILogger<UserController> logger)
     {
-        
+        _userService = userService;
+        _logger = logger;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateUser([FromBody] User user)
+    [AllowAnonymous]
+    public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
     {
-        return null;
+        if (!request.IsValid())
+            return BadRequest(new { message = "Invalid request data" });
+
+        try
+        {
+            await _userService.CreateAsync(request);
+            return Created();
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new { message = ex.Message });
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error creating user");
+            return StatusCode(500, new { message = "Internal server error" });
+        }
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUser()
+    [Authorize(Roles = "Seller,Admin,Customer")]
+    public async Task<IActionResult> GetAll()
     {
-        return null;
+        var users = await _userService.GetAllAsync();
+        return Ok(users);
     }
 
-    [HttpGet]
-    [Route("getBy-id")]
-    public async Task<IActionResult> GetUserById([FromQuery] Guid id)
+    [HttpGet("{id:guid}")]
+    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Seller")]
+    [Authorize(Roles = "Customer")]
+    public async Task<IActionResult> GetById(Guid id)
     {
-        return null;
+        var user = await _userService.GetByIdAsync(id);
+        return user is null ? NotFound() : Ok(user);
     }
-
-
-
-
-
-
 }
