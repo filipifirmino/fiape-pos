@@ -10,10 +10,12 @@ public static class ConfigureApplication
     {
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService, JwtTokenService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IProductService, ProductService>();
     }
-    
+
     public static void AddApplicationConfiguration(this IServiceCollection services)
     {
         services.ConfigureDependences();
-    }    
+    }
 }

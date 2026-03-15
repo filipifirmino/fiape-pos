@@ -2,12 +2,10 @@ namespace Marketplace.Catalog.Domain.Dtos;
 
 public class LoginRequest
 {
-    public string Email {get; set;}
-    public string Password {get; set;}
+    public string Email { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 
-    public bool IsValid()
-    {
-        return Email != null && !Email.IsNormalized() && Password != null && !Password.IsNormalized();
-    }
-    
+    public bool IsValid() =>
+        !string.IsNullOrWhiteSpace(Email) &&
+        !string.IsNullOrWhiteSpace(Password);
 }

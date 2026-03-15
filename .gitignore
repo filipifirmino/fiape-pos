@@ -53,3 +53,7 @@ desktop.ini
 # Logs
 *.log
 logs/
+
+# Claude
+.claude
+Claude.md
