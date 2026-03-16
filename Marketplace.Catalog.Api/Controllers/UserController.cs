@@ -47,7 +47,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Seller,Admin,Customer")]
+    [Authorize(Roles = "Admin,Seller,Customer")]
     public async Task<IActionResult> GetAll()
     {
         var users = await _userService.GetAllAsync();
@@ -55,9 +55,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    [Authorize(Roles = "Admin")]
-    [Authorize(Roles = "Seller")]
-    [Authorize(Roles = "Customer")]
+    [Authorize(Roles = "Admin,Seller,Customer")]
     public async Task<IActionResult> GetById(Guid id)
     {
         var user = await _userService.GetByIdAsync(id);

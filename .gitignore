@@ -20,6 +20,7 @@ artifacts/
 *.userosscache
 *.sln.docstates
 *.userprefs
+*.vscode/
 
 # Rider
 .idea/
@@ -57,3 +58,6 @@ logs/
 # Claude
 .claude
 Claude.md
+
+#git
+.gitignore

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -30,7 +31,7 @@ public static class JwtAuthenticationExtension
                     ValidAudience = configuration["Jwt:Audience"],
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero,
-                    RoleClaimType = "role",
+                    RoleClaimType = ClaimTypes.Role,
                     NameClaimType = "userId"
                 };
             });
